@@ -5,6 +5,27 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>REVO FIXER ULTRA - Server Edition</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+
+<!-- ✅ FIREBASE ADDED ONLY (nothing else changed) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDbaFKRqrD976syNij_fSSuIBSPRtR9vbo",
+  authDomain: "revofixer-81a1c.firebaseapp.com",
+  projectId: "revofixer-81a1c",
+  storageBucket: "revofixer-81a1c.firebasestorage.app",
+  messagingSenderId: "1049094387124",
+  appId: "1:1049094387124:web:864be9cd7ed7c2455caee1",
+  measurementId: "G-HYF2T2VQ8K"
+};
+
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+</script>
+
+<style>
 <style>
 :root{
   --bg:#03030c;--bg2:#07071a;
