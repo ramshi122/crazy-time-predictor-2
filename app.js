@@ -537,11 +537,43 @@ document.addEventListener('visibilitychange', ()=>{
 // ══════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════
+// 🔥 FIREBASE LIVE CRAZYTIME LISTENER (ADDED)
+
+if (window.firebase && firebase.firestore) {
+
+  const db = firebase.firestore();
+
+  db.collection("crazytime_live")
+    .orderBy("time","desc")
+    .limit(50)
+    .onSnapshot((snap)=>{
+
+      const items=[];
+      snap.forEach(doc=>{
+        items.push(doc.data());
+      });
+
+      if(items.length){
+        liveData = items;
+        renderTiles(items);
+        renderFreq(items);
+
+        document.getElementById('linfo').textContent =
+          "🔥 Firebase LIVE sync active";
+      }
+
+    });
+
+}
+
+
+// ══════════════════════════════════════════
+// INIT (ORIGINAL)
+// ══════════════════════════════════════════
 
 (async () => {
   console.log('🎰 REVO FIXER ULTRA - Initializing...');
   
-  // Check server health
   const health = await checkServerHealth();
   if(health) {
     console.log('✅ Server online');
@@ -550,7 +582,6 @@ document.addEventListener('visibilitychange', ()=>{
     console.warn('⚠️ Server health check failed - using local AI only');
   }
   
-  // Start prediction
   predict();
   resetTimer();
 })();
