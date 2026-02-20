@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>REVO FIXER ULTRA - Server Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#03030c;--bg2:#07071a;
+  --gold:#F4C542;--teal:#00E5CC;--pu:#A855F7;--red:#F43F5E;--gr:#22C55E;
+  --cl:#F97316;--gp:#10B981;--gm:#60A5FA;--en:#A855F7;
+  --bdr:rgba(255,255,255,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:#fff;overflow-x:hidden;
+  background-image:
+    radial-gradient(ellipse 130% 70% at 0% 0%,rgba(168,85,247,0.12) 0%,transparent 55%),
+    radial-gradient(ellipse 120% 65% at 100% 100%,rgba(0,229,204,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 50% at 50% 50%,rgba(244,197,66,0.03) 0%,transparent 60%),
+    repeating-linear-gradient(0deg,transparent,transparent 68px,rgba(255,255,255,0.013) 68px,rgba(255,255,255,0.013) 69px),
+    repeating-linear-gradient(90deg,transparent,transparent 68px,rgba(255,255,255,0.013) 68px,rgba(255,255,255,0.013) 69px);}
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-thumb{background:rgba(244,197,66,0.2);border-radius:3px;}
+.page{max-width:490px;margin:0 auto;padding:12px 11px 90px;}
+
+/* HEADER */
+.hdr{text-align:center;padding:22px 16px 19px;margin-bottom:13px;
+  background:linear-gradient(145deg,rgba(244,197,66,0.07),rgba(168,85,247,0.05));
+  border:1px solid rgba(244,197,66,0.2);border-radius:22px;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(244,197,66,0.7),transparent);}
+.hdr::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(168,85,247,0.3),transparent);}
+.logo{font-family:'Orbitron',monospace;font-size:23px;font-weight:900;letter-spacing:4px;
+  background:linear-gradient(90deg,#f97316,#F4C542,#00E5CC,#A855F7,#f97316);background-size:400%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:lA 6s ease infinite;}
+@keyframes lA{0%,100%{background-position:0%}50%{background-position:100%}}
+.logo-sub{font-family:'Share Tech Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2.5px;margin-top:5px;}
+.hchips{display:flex;justify-content:center;gap:5px;margin-top:12px;flex-wrap:wrap;}
+.chip{font-family:'Share Tech Mono',monospace;font-size:7.5px;padding:3px 10px;border-radius:20px;letter-spacing:1px;}
+.c1{background:rgba(244,63,94,0.12);border:1px solid rgba(244,63,94,0.3);color:#f87171;}
+.c2{background:rgba(0,229,204,0.09);border:1px solid rgba(0,229,204,0.28);color:var(--teal);}
+.c3{background:rgba(34,197,94,0.09);border:1px solid rgba(34,197,94,0.28);color:#4ade80;}
+.c4{background:rgba(244,197,66,0.09);border:1px solid rgba(244,197,66,0.28);color:var(--gold);}
+.bd{display:inline-block;width:5px;height:5px;border-radius:50%;background:currentColor;animation:blk 1s infinite;margin-right:3px;vertical-align:middle;}
+@keyframes blk{0%,100%{opacity:1}50%{opacity:0.1}}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:13px;}
+.sp{background:var(--bg2);border:1px solid var(--bdr);border-radius:13px;padding:11px 4px;text-align:center;}
+.sn{font-family:'Orbitron',monospace;font-size:15px;font-weight:700;color:var(--gold);}
+.sl{font-size:7.5px;color:rgba(255,255,255,0.25);margin-top:2px;letter-spacing:0.5px;text-transform:uppercase;}
+
+/* SEC HEADER */
+.sec{font-family:'Share Tech Mono',monospace;font-size:8.5px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,0.2);margin-bottom:9px;display:flex;align-items:center;gap:8px;}
+.sec::after{content:'';flex:1;height:1px;background:var(--bdr);}
+
+/* AI STATUS */
+.aist{border-radius:15px;padding:12px 14px;margin-bottom:13px;
+  background:rgba(255,255,255,0.025);border:1px solid;position:relative;overflow:hidden;transition:border-color 0.4s;}
+.aist-live  {border-color:rgba(34,197,94,0.3);}
+.aist-search{border-color:rgba(0,229,204,0.3);}
+.aist-local {border-color:rgba(244,197,66,0.28);}
+.aist-err   {border-color:rgba(244,63,94,0.25);}
+.aist::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;}
+.aist-live::before  {background:linear-gradient(90deg,transparent,rgba(34,197,94,0.5),transparent);}
+.aist-search::before{background:linear-gradient(90deg,transparent,rgba(0,229,204,0.5),transparent);animation:glow 1s ease infinite;}
+.aist-local::before {background:linear-gradient(90deg,transparent,rgba(244,197,66,0.4),transparent);}
+@keyframes glow{0%,100%{opacity:0.5}50%{opacity:1}}
+.aist-row{display:flex;align-items:center;gap:9px;}
+.aist-ico{font-size:20px;flex-shrink:0;}
+.aist-main{flex:1;}
+.aist-title{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:2px;margin-bottom:2px;}
+.aist-live  .aist-title{color:var(--gr);}
+.aist-search .aist-title{color:var(--teal);}
+.aist-local  .aist-title{color:var(--gold);}
+.aist-err    .aist-title{color:#f87171;}
+.aist-desc{font-size:9px;color:rgba(255,255,255,0.38);line-height:1.4;}
+.aist-time{font-family:'Share Tech Mono',monospace;font-size:7.5px;color:rgba(255,255,255,0.22);flex-shrink:0;}
+
+/* PREDICT BUTTON */
+.btn-pred{width:100%;padding:17px;border:none;border-radius:18px;
+  font-family:'Orbitron',monospace;font-size:12px;font-weight:900;letter-spacing:3px;
+  cursor:pointer;color:#fff;margin-bottom:9px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#f97316,#F4C542,#00E5CC,#A855F7);background-size:300%;
+  animation:bA 4s ease infinite;box-shadow:0 6px 34px rgba(168,85,247,0.38);transition:all 0.2s;}
+.btn-pred:not(:disabled):active{transform:scale(0.97);}
+.btn-pred:disabled{opacity:0.42;cursor:not-allowed;animation:none;background:#333;}
+@keyframes bA{0%,100%{background-position:0%}50%{background-position:100%}}
+.btn-auto{width:100%;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.09);
+  background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.4);cursor:pointer;
+  font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:13px;}
+.abadge{font-family:'Share Tech Mono',monospace;font-size:8px;padding:2px 8px;border-radius:5px;letter-spacing:1px;}
+.a-on{background:rgba(34,197,94,0.13);border:1px solid rgba(34,197,94,0.3);color:#4ade80;}
+.a-off{background:rgba(244,63,94,0.13);border:1px solid rgba(244,63,94,0.3);color:#f87171;}
+
+/* 4 AI BOXES */
+.grid4{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px;}
+.abox{border-radius:18px;overflow:hidden;border:1px solid;transition:transform 0.2s,box-shadow 0.2s;}
+.abox:hover{transform:translateY(-2px);}
+.cl-b{border-color:rgba(249,115,22,0.22);background:linear-gradient(155deg,rgba(249,115,22,0.055),transparent);}
+.gp-b{border-color:rgba(16,185,129,0.22);background:linear-gradient(155deg,rgba(16,185,129,0.055),transparent);}
+.gm-b{border-color:rgba(96,165,250,0.22);background:linear-gradient(155deg,rgba(96,165,250,0.055),transparent);}
+.en-b{border-color:rgba(168,85,247,0.22);background:linear-gradient(155deg,rgba(168,85,247,0.055),transparent);}
+.cl-b::before{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,rgba(249,115,22,0.6),transparent);}
+.gp-b::before{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,rgba(16,185,129,0.6),transparent);}
+.gm-b::before{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,rgba(96,165,250,0.6),transparent);}
+.en-b::before{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,rgba(168,85,247,0.6),transparent);}
+.abin{padding:12px 10px 11px;}
+
+.abh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.abh-l{display:flex;align-items:center;gap:5px;}
+.adot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.cl-b .adot{background:var(--cl);box-shadow:0 0 8px var(--cl);}
+.gp-b .adot{background:var(--gp);box-shadow:0 0 8px var(--gp);}
+.gm-b .adot{background:var(--gm);box-shadow:0 0 8px var(--gm);}
+.en-b .adot{background:var(--en);box-shadow:0 0 8px var(--en);}
+.aname{font-family:'Share Tech Mono',monospace;font-size:7.5px;letter-spacing:0.8px;opacity:0.62;}
+.cl-b .aname{color:var(--cl);}.gp-b .aname{color:var(--gp);}
+.gm-b .aname{color:var(--gm);}.en-b .aname{color:var(--en);}
+.apill{font-family:'Share Tech Mono',monospace;font-size:7px;letter-spacing:0.8px;
+  padding:2px 7px;border-radius:5px;text-transform:uppercase;border:1px solid;}
+.cl-b .apill{background:rgba(249,115,22,0.12);color:var(--cl);border-color:rgba(249,115,22,0.3);}
+.gp-b .apill{background:rgba(16,185,129,0.12);color:var(--gp);border-color:rgba(16,185,129,0.3);}
+.gm-b .apill{background:rgba(96,165,250,0.12);color:var(--gm);border-color:rgba(96,165,250,0.3);}
+.en-b .apill{background:rgba(168,85,247,0.12);color:var(--en);border-color:rgba(168,85,247,0.3);}
+@keyframes pillBlink{0%,100%{opacity:1}50%{opacity:0.35}}
+.pill-thinking{animation:pillBlink 0.6s ease infinite;}
+
+.ares{display:flex;flex-direction:column;align-items:center;gap:7px;}
+
+/* ring */
+.aring{width:74px;height:74px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(12,12,30,1);border:2px solid rgba(255,255,255,0.08);position:relative;flex-shrink:0;
+  transition:all 0.3s cubic-bezier(.34,1.56,.64,1);}
+.rv{font-family:'Orbitron',monospace;font-size:26px;font-weight:900;color:#fff;z-index:2;position:relative;}
+.rtx{font-size:7.5px;font-weight:700;color:#fff;text-align:center;line-height:1.3;text-transform:uppercase;z-index:2;position:relative;}
+.r-1  {background:linear-gradient(135deg,#f43f5e,#be185d)!important;border-color:#f43f5e!important;box-shadow:0 0 26px rgba(244,63,94,0.65)!important;}
+.r-2  {background:linear-gradient(135deg,#3b82f6,#1e3a8a)!important;border-color:#3b82f6!important;box-shadow:0 0 26px rgba(59,130,246,0.65)!important;}
+.r-5  {background:linear-gradient(135deg,#22c55e,#14532d)!important;border-color:#22c55e!important;box-shadow:0 0 26px rgba(34,197,94,0.65)!important;}
+.r-10 {background:linear-gradient(135deg,#f97316,#7c2d12)!important;border-color:#f97316!important;box-shadow:0 0 26px rgba(249,115,22,0.65)!important;}
+.r-pa {background:linear-gradient(135deg,#fbbf24,#78350f)!important;border-color:#fbbf24!important;box-shadow:0 0 26px rgba(251,191,36,0.65)!important;}
+.r-ca {background:linear-gradient(135deg,#818cf8,#312e81)!important;border-color:#818cf8!important;box-shadow:0 0 26px rgba(129,140,248,0.65)!important;}
+.r-co {background:linear-gradient(135deg,#34d399,#064e3b)!important;border-color:#34d399!important;box-shadow:0 0 26px rgba(52,211,153,0.65)!important;}
+.r-ct {background:conic-gradient(from 0deg,#f43f5e,#00E5CC,#F4C542,#A855F7,#f43f5e)!important;
+  border-color:#F4C542!important;animation:cSpin 2s linear infinite!important;box-shadow:0 0 32px rgba(244,197,66,0.82)!important;}
+@keyframes cSpin{100%{transform:rotate(360deg)}}
+/* loading ring */
+.rload{width:74px;height:74px;border-radius:50%;border:3px solid rgba(255,255,255,0.07);
+  border-top-color:rgba(255,255,255,0.5);animation:rSpin 0.85s linear infinite;flex-shrink:0;}
+@keyframes rSpin{100%{transform:rotate(360deg)}}
+@keyframes popR{0%{transform:scale(0.35)}65%{transform:scale(1.13)}100%{transform:scale(1)}}
+@keyframes pulseR{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.do-pop{animation:popR 0.4s cubic-bezier(.34,1.56,.64,1);}
+.do-pulse{animation:pulseR 3s ease-in-out infinite;}
+
+/* loading dots */
+.ldots span{animation:ldA 1.4s ease infinite;font-size:16px;color:rgba(255,255,255,0.4);}
+.ldots span:nth-child(2){animation-delay:.2s;}
+.ldots span:nth-child(3){animation-delay:.4s;}
+@keyframes ldA{0%,80%,100%{opacity:0.15}40%{opacity:1}}
+.ltxt{font-family:'Share Tech Mono',monospace;font-size:8.5px;color:rgba(255,255,255,0.28);letter-spacing:1px;}
+
+.albl{font-size:11px;font-weight:700;}
+.cl-b .albl{color:var(--cl);}.gp-b .albl{color:var(--gp);}
+.gm-b .albl{color:var(--gm);}.en-b .albl{color:var(--en);}
+
+/* confidence */
+.aconf{width:100%;}
+.acrow{display:flex;justify-content:space-between;margin-bottom:3px;}
+.aclbl{font-size:7.5px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.5px;}
+.acpct{font-size:10px;font-weight:700;}
+.cl-b .acpct{color:var(--cl);}.gp-b .acpct{color:var(--gp);}
+.gm-b .acpct{color:var(--gm);}.en-b .acpct{color:var(--en);}
+.acbar{height:4px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;}
+.acf{height:100%;width:0%;border-radius:4px;transition:width 0.7s ease;}
+.cl-b .acf{background:linear-gradient(90deg,rgba(249,115,22,0.4),var(--cl));}
+.gp-b .acf{background:linear-gradient(90deg,rgba(16,185,129,0.4),var(--gp));}
+.gm-b .acf{background:linear-gradient(90deg,rgba(96,165,250,0.4),var(--gm));}
+.en-b .acf{background:linear-gradient(90deg,rgba(168,85,247,0.4),var(--en));}
+
+/* HCD */
+.ahcd{display:flex;gap:3px;width:100%;}
+.hcell{flex:1;text-align:center;border-radius:7px;padding:4px 2px;}
+.hc-h{background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.17);}
+.hc-d{background:rgba(244,197,66,0.08);border:1px solid rgba(244,197,66,0.17);}
+.hc-c{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.17);}
+.hclb{font-size:7px;font-weight:700;display:block;margin-bottom:1px;}
+.hc-h .hclb{color:#f87171;}.hc-d .hclb{color:var(--gold);}.hc-c .hclb{color:#93c5fd;}
+.hcval{font-size:13px;color:#fff;font-weight:700;}
+
+/* reason */
+.arsn{font-size:8.5px;line-height:1.55;color:rgba(255,255,255,0.4);width:100%;
+  padding:7px 9px;border-radius:8px;background:rgba(255,255,255,0.028);border-left:2px solid;}
+.cl-b .arsn{border-color:rgba(249,115,22,0.38);}
+.gp-b .arsn{border-color:rgba(16,185,129,0.38);}
+.gm-b .arsn{border-color:rgba(96,165,250,0.38);}
+.en-b .arsn{border-color:rgba(168,85,247,0.38);}
+.asrc{font-family:'Share Tech Mono',monospace;font-size:7px;color:rgba(255,255,255,0.18);
+  text-align:right;margin-top:4px;width:100%;}
+
+/* CONSENSUS */
+.cons{background:linear-gradient(145deg,rgba(244,197,66,0.05),rgba(168,85,247,0.04));
+  border:1px solid rgba(244,197,66,0.2);border-radius:18px;padding:15px 13px;margin-bottom:13px;
+  position:relative;overflow:hidden;}
+.cons::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(244,197,66,0.55),transparent);}
+.cons-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.cons-t{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:2px;}
+.cons-c{font-family:'Share Tech Mono',monospace;font-size:8px;color:rgba(255,255,255,0.27);}
+.cons-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.ci{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;
+  border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);min-width:70px;transition:all 0.3s;}
+.ci.win{border-color:rgba(244,197,66,0.48);background:rgba(244,197,66,0.09);box-shadow:0 0 20px rgba(244,197,66,0.15);}
+.ci-ic{font-size:22px;}.ci-lb{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.6);}
+.ci.win .ci-lb{color:var(--gold);}.ci-v{font-size:8.5px;color:rgba(255,255,255,0.24);}
+.ci.win .ci-v{color:rgba(244,197,66,0.65);}
+
+/* LIVE RESULTS */
+.lbox{background:var(--bg2);border:1px solid rgba(244,63,94,0.18);border-radius:18px;
+  padding:14px 12px;margin-bottom:13px;position:relative;overflow:hidden;}
+.lbox::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(244,63,94,0.5),transparent);}
+.lhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;flex-wrap:wrap;gap:6px;}
+.ltit{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:var(--red);letter-spacing:2px;display:flex;align-items:center;gap:6px;}
+.lref{font-family:'Share Tech Mono',monospace;font-size:8px;padding:3px 10px;border-radius:7px;
+  background:rgba(0,229,204,0.08);border:1px solid rgba(0,229,204,0.25);color:var(--teal);cursor:pointer;}
+.linfo{font-size:8.5px;color:rgba(255,255,255,0.22);margin-bottom:9px;font-family:'Share Tech Mono',monospace;}
+.rscroll{overflow-x:auto;padding-bottom:5px;}
+.rrow{display:flex;gap:5px;width:max-content;}
+.rtile{width:54px;flex-shrink:0;border-radius:11px;padding:8px 4px;display:flex;flex-direction:column;
+  align-items:center;gap:3px;border:1px solid rgba(255,255,255,0.08);animation:tIn 0.3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes tIn{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
+.ri{font-size:15px;line-height:1;}.rl{font-size:7.5px;font-weight:700;color:#fff;text-align:center;line-height:1.2;text-transform:uppercase;}.rtt{font-size:6.5px;color:rgba(255,255,255,0.3);}
+.rt-1       {background:linear-gradient(135deg,rgba(244,63,94,0.55),rgba(190,24,93,0.55));border-color:rgba(244,63,94,0.34);}
+.rt-2       {background:linear-gradient(135deg,rgba(59,130,246,0.55),rgba(30,58,138,0.55));border-color:rgba(59,130,246,0.34);}
+.rt-5       {background:linear-gradient(135deg,rgba(34,197,94,0.55),rgba(6,95,70,0.55));border-color:rgba(34,197,94,0.34);}
+.rt-10      {background:linear-gradient(135deg,rgba(249,115,22,0.55),rgba(124,45,18,0.55));border-color:rgba(249,115,22,0.34);}
+.rt-pachinko{background:linear-gradient(135deg,rgba(251,191,36,0.55),rgba(146,64,14,0.55));border-color:rgba(251,191,36,0.34);}
+.rt-cashunt {background:linear-gradient(135deg,rgba(129,140,248,0.55),rgba(49,46,129,0.55));border-color:rgba(129,140,248,0.34);}
+.rt-coinflip{background:linear-gradient(135deg,rgba(52,211,153,0.55),rgba(6,78,59,0.55));border-color:rgba(52,211,153,0.34);}
+.rt-crazytime{background:conic-gradient(from 0deg,rgba(244,63,94,0.62),rgba(0,229,204,0.62),rgba(244,197,66,0.62),rgba(168,85,247,0.62),rgba(244,63,94,0.62));border-color:rgba(244,197,66,0.34);}
+
+/* freq */
+.fbox{background:rgba(255,255,255,0.022);border:1px solid var(--bdr);border-radius:12px;padding:11px;margin-top:11px;}
+.ftit{font-family:'Share Tech Mono',monospace;font-size:7.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:8px;}
+.fr{display:flex;align-items:center;gap:5px;margin-bottom:4px;}
+.fi{font-size:12px;width:18px;text-align:center;flex-shrink:0;}
+.fn{font-size:8px;color:rgba(255,255,255,0.35);width:62px;flex-shrink:0;}
+.fb{flex:1;height:5px;background:rgba(255,255,255,0.05);border-radius:4px;overflow:hidden;}
+.ff{height:100%;border-radius:4px;transition:width 0.8s ease;}
+.fp{font-size:8px;font-weight:700;color:rgba(255,255,255,0.38);min-width:28px;text-align:right;}
+.fc{font-size:8px;color:rgba(255,255,255,0.2);min-width:20px;text-align:right;}
+.ftg{font-size:7px;font-weight:700;padding:1px 5px;border-radius:4px;flex-shrink:0;font-family:'Share Tech Mono',monospace;}
+.tg-h{background:rgba(244,63,94,0.18);color:#f87171;}
+.tg-d{background:rgba(244,197,66,0.14);color:var(--gold);}
+.tg-c{background:rgba(59,130,246,0.18);color:#93c5fd;}
+
+/* channels */
+.chbox{background:var(--bg2);border:1px solid rgba(168,85,247,0.17);border-radius:18px;padding:15px 12px;position:relative;overflow:hidden;}
+.chbox::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(168,85,247,0.48),transparent);}
+.chtit{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:var(--pu);letter-spacing:2px;margin-bottom:11px;}
+.chg{display:flex;flex-direction:column;gap:6px;}
+.chi{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.022);
+  border:1px solid var(--bdr);border-radius:11px;text-decoration:none;transition:all 0.2s;}
+.chi:hover{background:rgba(168,85,247,0.07);border-color:rgba(168,85,247,0.24);transform:translateX(3px);}
+.ch-ico{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.ch-in{flex:1;}.ch-n{font-size:12px;font-weight:700;color:#fff;margin-bottom:1px;}.ch-d{font-size:9px;color:rgba(255,255,255,0.3);}
+.ch-b{font-size:7.5px;font-weight:700;padding:2px 7px;border-radius:5px;flex-shrink:0;font-family:'Share Tech Mono',monospace;}
+.bl{background:rgba(244,63,94,0.14);color:#f87171;border:1px solid rgba(244,63,94,0.24);}
+.bh{background:rgba(249,115,22,0.14);color:#fb923c;border:1px solid rgba(249,115,22,0.24);}
+.bf{background:rgba(34,197,94,0.14);color:#4ade80;border:1px solid rgba(34,197,94,0.24);}
+.bv{background:rgba(168,85,247,0.14);color:var(--pu);border:1px solid rgba(168,85,247,0.24);}
+
+/* timer */
+.atimer{position:fixed;top:11px;right:11px;z-index:999;background:rgba(3,3,12,0.95);
+  border:1px solid rgba(244,197,66,0.22);border-radius:11px;padding:5px 12px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--gold);backdrop-filter:blur(16px);
+  display:flex;align-items:center;gap:6px;}
+.atd{width:5px;height:5px;border-radius:50%;background:var(--gr);animation:blk 1s infinite;}
+
+@media(max-width:380px){
+  .grid4{grid-template-columns:1fr;}
+  .stats{grid-template-columns:1fr 1fr;}
+  .aring,.rload{width:64px;height:64px;}
+  .rv{font-size:22px;}
+}
+</style>
+</head>
+<body>
+<div class="atimer"><div class="atd"></div><span id="atxt">60s</span></div>
+<div class="page">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="logo">REVO FIXER ULTRA</div>
+  <div class="logo-sub">SERVER EDITION · REAL AI · WEB SEARCH · LIVE PREDICTIONS</div>
+  <div class="hchips">
+    <div class="chip c1"><div class="bd"></div>LIVE</div>
+    <div class="chip c2">REAL AI</div>
+    <div class="chip c3">WEB SEARCH</div>
+    <div class="chip c4">SERVER PROXY</div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="sp"><div class="sn" id="stT">0</div><div class="sl">Predictions</div></div>
+  <div class="sp"><div class="sn" id="stA">—</div><div class="sl">Accuracy</div></div>
+  <div class="sp"><div class="sn" id="stB">0</div><div class="sl">Bonuses</div></div>
+  <div class="sp"><div class="sn" id="stU">1.2K</div><div class="sl">Online</div></div>
+</div>
+
+<!-- AI STATUS -->
+<div class="aist aist-search" id="aiSt">
+  <div class="aist-row">
+    <div class="aist-ico">🤖</div>
+    <div class="aist-main">
+      <div class="aist-title" id="aiStT">AI INITIALIZING</div>
+      <div class="aist-desc" id="aiStD">Connecting to server AI engines…</div>
+    </div>
+    <div class="aist-time" id="aiStTm"></div>
+  </div>
+</div>
+
+<!-- PREDICT BUTTON -->
+<button class="btn-pred" id="btnPred">🤖 GET REAL AI PREDICTION NOW</button>
+<button class="btn-auto" id="btnAuto">
+  <span class="abadge a-on" id="autoBadge">AUTO ON</span>
+  <span id="autoLbl">Auto-predict every 60 seconds</span>
+</button>
+
+<!-- 4 AI BOXES -->
+<div class="sec">🤖 4 AI Engines — Real-Time Analysis</div>
+<div class="grid4">
+  <div class="abox cl-b" id="box-cl"><div class="abin">
+    <div class="abh"><div class="abh-l"><div class="adot"></div><div class="aname">CLAUDE·MARKOV</div></div><div class="apill" id="pill-cl">READY</div></div>
+    <div class="ares" id="res-cl"><div class="rload" style="border-top-color:var(--cl);"></div><div class="ltxt">Connecting…</div></div>
+  </div></div>
+  <div class="abox gp-b" id="box-gp"><div class="abin">
+    <div class="abh"><div class="abh-l"><div class="adot"></div><div class="aname">GPT·PATTERN</div></div><div class="apill" id="pill-gp">READY</div></div>
+    <div class="ares" id="res-gp"><div class="rload" style="border-top-color:var(--gp);"></div><div class="ltxt">Connecting…</div></div>
+  </div></div>
+  <div class="abox gm-b" id="box-gm"><div class="abin">
+    <div class="abh"><div class="abh-l"><div class="adot"></div><div class="aname">GEMINI·BAYES</div></div><div class="apill" id="pill-gm">READY</div></div>
+    <div class="ares" id="res-gm"><div class="rload" style="border-top-color:var(--gm);"></div><div class="ltxt">Connecting…</div></div>
+  </div></div>
+  <div class="abox en-b" id="box-en"><div class="abin">
+    <div class="abh"><div class="abh-l"><div class="adot"></div><div class="aname">ENSEMBLE·AI</div></div><div class="apill" id="pill-en">READY</div></div>
+    <div class="ares" id="res-en"><div class="rload" style="border-top-color:var(--en);"></div><div class="ltxt">Connecting…</div></div>
+  </div></div>
+</div>
+
+<!-- CONSENSUS -->
+<div class="sec">⚖️ AI Consensus</div>
+<div class="cons">
+  <div class="cons-hdr">
+    <div class="cons-t">COMBINED AI PICK</div>
+    <div class="cons-c" id="consC">—</div>
+  </div>
+  <div class="cons-row" id="consR">
+    <div style="font-size:11px;color:rgba(255,255,255,0.22);padding:8px 0;">Press PREDICT to start…</div>
+  </div>
+</div>
+
+<!-- LIVE RESULTS -->
+<div class="sec">📊 Live Results</div>
+<div class="lbox">
+  <div class="lhdr">
+    <div class="ltit"><div class="bd" style="color:#f43f5e;"></div>REAL-TIME SPINS</div>
+    <button class="lref" id="btnRef">↺ REFRESH</button>
+  </div>
+  <div class="linfo" id="linfo">Loading live Crazy Time results from server…</div>
+  <div class="rscroll"><div class="rrow" id="resRow"><div style="padding:14px;font-size:11px;color:rgba(255,255,255,0.25);">Loading…</div></div></div>
+  <div class="fbox">
+    <div class="ftit">📊 FREQUENCY ANALYSIS</div>
+    <div id="fGrid"><div style="font-size:9.5px;color:rgba(255,255,255,0.18);text-align:center;padding:6px;">Loading…</div></div>
+  </div>
+</div>
+
+<!-- CHANNELS -->
+<div class="sec" style="margin-top:13px;">📡 Signal Channels</div>
+<div class="chbox">
+  <div class="chtit">📡 LIVE CHANNELS</div>
+  <div class="chg">
+    <a class="chi" href="https://t.me/CrazyTimePredictions" target="_blank" rel="noopener">
+      <div class="ch-ico" style="background:rgba(41,182,246,0.12);border:1px solid rgba(41,182,246,0.24);">📱</div>
+      <div class="ch-in"><div class="ch-n">Crazy Time Predictions</div><div class="ch-d">24/7 live signals · Telegram</div></div>
+      <div class="ch-b bl">LIVE</div></a>
+    <a class="chi" href="https://t.me/CrazyTimeSignals" target="_blank" rel="noopener">
+      <div class="ch-ico" style="background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.24);">🔥</div>
+      <div class="ch-in"><div class="ch-n">Crazy Time Signals</div><div class="ch-d">Bonus alerts · Free signals</div></div>
+      <div class="ch-b bh">HOT</div></a>
+    <a class="chi" href="https://t.me/RevoCrazyTime" target="_blank" rel="noopener">
+      <div class="ch-ico" style="background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.24);">👑</div>
+      <div class="ch-in"><div class="ch-n">REVO VIP Channel</div><div class="ch-d">Premium VIP signals</div></div>
+      <div class="ch-b bv">VIP</div></a>
+    <a class="chi" href="https://www.tracksino.com/crazytime" target="_blank" rel="noopener">
+      <div class="ch-ico" style="background:rgba(244,63,94,0.12);border:1px solid rgba(244,63,94,0.24);">📊</div>
+      <div class="ch-in"><div class="ch-n">Tracksino Live Stats</div><div class="ch-d">Real-time history & analytics</div></div>
+      <div class="ch-b bl">DATA</div></a>
+    <a class="chi" href="https://www.ltccasino.io/blog/crazy-time-statistics/" target="_blank" rel="noopener">
+      <div class="ch-ico" style="background:rgba(0,229,204,0.12);border:1px solid rgba(0,229,204,0.24);">🌐</div>
+      <div class="ch-in"><div class="ch-n">LTC Casino Stats</div><div class="ch-d">Live stats & big win tracker</div></div>
+      <div class="ch-b bf">STATS</div></a>
+  </div>
+</div>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
